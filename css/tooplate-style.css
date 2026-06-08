@@ -122,8 +122,8 @@ p {
 	margin-top: 10px;
 	background-image: url(../img/logo-weis.png);
 	display: inline-block;
-	width: 375px;
-	height: 96px;
+	width: 100px;
+	height: 25px;
 	background-repeat: no-repeat;
 	background-size: contain;
 }
