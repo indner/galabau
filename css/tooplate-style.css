@@ -119,21 +119,24 @@ p {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
 }
 .navbar-brand .logo{
-	margin-top: 12px;
-	background-image: url(../img/logow-weis.png);
+	margin-top: 15px !important;
+	background-image: url(../img/logow-weis.png) !important;
 	display: inline-block;
 	width: 90px !important;
 	height: 23px !important;
-	background-repeat: no-repeat;
-	background-size: contain;
+	background-repeat: no-repeat !important;
+	background-position: left center !important;
+	background-size: contain !important;
 }
 .header.active .navbar-brand .logo{
-	margin-top: 22px;
-	background-image: url(../img/black_logo.png);
+	margin-top: 15px !important;
+	background-image: url(../img/black_logo.png) !important;
 	display: inline-block;
-	width: 125px;
-	height: 32px;
-	background-repeat: no-repeat;
+	width: 90px !important;
+	height: 23px !important;
+	background-repeat: no-repeat !important;
+	background-position: left center !important;
+	background-size: contain !important;
 }
 #main-nav {
 	background-color: transparent;
