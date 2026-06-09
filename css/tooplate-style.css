@@ -122,8 +122,8 @@ p {
 	margin-top: 12px;
 	background-image: url(../img/logow-weis.png);
 	display: inline-block;
-	width: 90px;
-	height: 23px;
+	width: 90px !important;
+	height: 23px !important;
 	background-repeat: no-repeat;
 	background-size: contain;
 }
