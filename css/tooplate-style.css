@@ -119,7 +119,7 @@ p {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
 }
 .navbar-brand .logo{
-	margin-top: 22px;
+	margin-top: 12px;
 	background-image: url(../img/logow-weis.png);
 	display: inline-block;
 	width: 375px;
