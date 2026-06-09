@@ -970,7 +970,7 @@ body.lb-disable-scrolling {
 		float: none;
 	}
 	.cd-hero {
-    background-image: url(../img/tag-top.jpg) !important; /* Namen anpassen! */
+    background-image: url(../img/tag-top.png) !important; /* Namen anpassen! */
     background-size: cover !important;
     background-position: center center !important;
     background-repeat: no-repeat !important;
