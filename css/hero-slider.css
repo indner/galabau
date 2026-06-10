@@ -678,32 +678,35 @@ Javascript disabled
   display: none;
 }
 /* Der durchgehende Balken ganz oben über die gesamte Breite */
-.site-header, header, nav.navbar, .navbar-default {
-    background-color: rgba(0, 0, 0, 0.65) !important; /* Balken-Farbe */
-    width: 100% !important;
-    left: 0 !important;
-    top: 0 !important;
-    position: absolute !important;
-    padding: 10px 0 !important; /* Angenehme Höhe für den Balken */
+.nav-container, .site-header, header, .navbar-default {
+    background-color: rgba(0, 0, 0, 0.65) !important; /* Der transparente schwarze Balken */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+    border: none !important; /* Entfernt eventuelle Standard-Ränder */
+    margin-bottom: 0 !important;
 }
 
-/* WICHTIG: Das holt das Logo und das Menü wieder aus den Ecken in die Mitte! */
+/* WICHTIG: Das setzt das Logo und Menü wieder auf die originale Template-Breite zurück */
 .site-header .container, 
 header .container, 
 .navbar .container, 
-nav.navbar .container {
+.nav-container .container {
     background: transparent !important;
-    width: 1140px !important; /* Standard-Breite für Bootstrap-Templates */
-    max-width: 95% !important; /* Schutz für kleinere Bildschirme / Laptops */
-    margin: 0 auto !important; /* Zentriert die Box perfekt in der Mitte */
-    display: flex !important; /* Aktiviert ein modernes Layout-System */
-    justify-content: space-between !important; /* Schiebt Logo links und Menü rechts, aber IM Container */
-    align-items: center !important; /* Zentriert Logo und Text vertikal perfekt */
+    width: auto !important; /* Löscht die starre Pixel-Breite von eben */
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    display: block !important; /* Schaltet zurück auf das originale Template-Verhalten */
+}
+
+/* Verhindert, dass das Logo und Menü gequetscht werden */
+.navbar-header, .navbar-brand, .logo {
+    float: left !important;
+}
+.navbar-collapse, .main-menu {
+    float: right !important;
 }
 
 /* Macht die Menüpunkte kräftig weiß und gut lesbar */
-.site-header a, header a, .navbar-nav li a {
+.site-header a, header a, .navbar-nav li a, .nav li a {
     color: #ffffff !important;
     font-weight: 600 !important;
 }
