@@ -699,14 +699,13 @@ header a, .site-header a, .main-header a, .navbar a, .navbar-nav li a, .main-men
 
 
 /* =======================================================
-   2. ZUSTAND BEIM SCROLLEN: Jetzt sauberes Weiß
+   2. ZUSTAND BEIM SCROLLEN: Jetzt sauberes, echtes Weiß
    ======================================================= */
 header.is-sticky, header.sticky, header.fixed,
 .site-header.is-sticky, .site-header.sticky, .site-header.fixed,
 .main-header.is-sticky, .main-header.sticky, .main-header.fixed,
 .navbar.is-sticky, .navbar.sticky, .navbar.fixed, .top-nav-collapse,
 .is-sticky header, .sticky header, .fixed header {
-    /* Geändert von Grau zu reinem, strahlendem Weiß */
     background-color: #ffffff !important;
     background: #ffffff !important;
     position: fixed !important;
@@ -724,14 +723,21 @@ header.is-sticky a, header.sticky a, header.fixed a,
 
 
 /* =======================================================
-   3. STRUKTUR-REPARATUR: Holt Logo & Menü aus den Ecken zurück
+   3. STRUKTUR-REPARATUR: Logo bleibt links, Menü bleibt rechts
    ======================================================= */
 header .container, .site-header .container, .main-header .container, .navbar .container {
-    /* Stellt die originale Breite des Meteor-Templates wieder her */
     width: 100% !important;
-    max-width: 1140px !important; /* Standard Bootstrap-Breite */
-    margin: 0 auto !important; /* Zentriert die Inhalte perfekt */
-    display: block !important; 
+    max-width: 1140px !important;
+    margin: 0 auto !important;
     background: transparent !important;
+    /* Nutzt Bootstrap Floats, damit das Logo links und Menü rechts bleibt */
+    display: block !important; 
 }
 
+/* Zwingt das originale Links/Rechts-Raster von Bootstrap zurück */
+header .navbar-header, .site-header .navbar-header, .navbar-brand, .logo {
+    float: left !important;
+}
+header .navbar-collapse, .site-header .navbar-collapse, .main-menu, .navbar-right {
+    float: right !important;
+}
