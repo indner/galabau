@@ -677,3 +677,12 @@ Javascript disabled
 .no-js .cd-slider-nav {
   display: none;
 }
+.cd-hero-slider p,
+.hero-slider p {
+    background: rgba(0, 0, 0, 0.4); /* Transparenter schwarzer Hintergrund */
+    padding: 15px 25px;
+    border-radius: 6px;
+    display: inline-block;
+    max-width: 600px;
+    text-shadow: none !important; /* Entfernt hier den unsauberen Schatten */
+}
