@@ -680,7 +680,6 @@ Javascript disabled
 /* =======================================================
    1. ZUSTAND GANZ OBEN: Durchgehend Schwarz-Transparent
    ======================================================= */
-/* Wir sprechen radikal alle Klassen an, damit die richtige definitiv getroffen wird */
 header, .site-header, .main-header, .navbar, .navbar-default, .header-wrapper, .nav-container {
     background-color: rgba(0, 0, 0, 0.75) !important;
     background: rgba(0, 0, 0, 0.75) !important;
@@ -692,7 +691,7 @@ header, .site-header, .main-header, .navbar, .navbar-default, .header-wrapper, .
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Alle Texte ganz oben werden strahlend weiß gezwungen */
+/* Texte oben kräftig weiß */
 header a, .site-header a, .main-header a, .navbar a, .navbar-nav li a, .main-menu a {
     color: #ffffff !important;
     font-weight: 600 !important;
@@ -700,22 +699,22 @@ header a, .site-header a, .main-header a, .navbar a, .navbar-nav li a, .main-men
 
 
 /* =======================================================
-   2. ZUSTAND BEIM SCROLLEN: Durchgehend Weiß-Transparent
+   2. ZUSTAND BEIM SCROLLEN: Jetzt sauberes Weiß
    ======================================================= */
-/* Sobald die JavaScript-Scrollklassen aktiv werden, überschreiben wir zu Weiß */
 header.is-sticky, header.sticky, header.fixed,
 .site-header.is-sticky, .site-header.sticky, .site-header.fixed,
 .main-header.is-sticky, .main-header.sticky, .main-header.fixed,
 .navbar.is-sticky, .navbar.sticky, .navbar.fixed, .top-nav-collapse,
 .is-sticky header, .sticky header, .fixed header {
-    background-color: rgba(255, 255, 255, 0.95) !important;
-    background: rgba(255, 255, 255, 0.95) !important;
-    position: fixed !important; /* Hält die Leiste beim Scrollen oben fest */
+    /* Geändert von Grau zu reinem, strahlendem Weiß */
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    position: fixed !important;
     top: 0 !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Texte werden beim Scrollen dunkelgrau, passend zum neuen Logo */
+/* Texte werden beim Scrollen dunkelgrau (passend zum dunklen Logo) */
 header.is-sticky a, header.sticky a, header.fixed a,
 .site-header.is-sticky a, .site-header.sticky a, .site-header.fixed a,
 .main-header.is-sticky a, .main-header.sticky a, .main-header.fixed a,
@@ -725,12 +724,14 @@ header.is-sticky a, header.sticky a, header.fixed a,
 
 
 /* =======================================================
-   3. STRUKTUR-REPARATUR: Logo & Menü bleiben an ihren Plätzen
+   3. STRUKTUR-REPARATUR: Holt Logo & Menü aus den Ecken zurück
    ======================================================= */
-/* Das bricht das verengte Box-System auf, ohne dass das Logo nach außen rutscht */
 header .container, .site-header .container, .main-header .container, .navbar .container {
-    width: auto !important;
-    max-width: 100% !important;
-    display: block !important; /* Nutzt wieder das originale Bootstrap-Raster */
+    /* Stellt die originale Breite des Meteor-Templates wieder her */
+    width: 100% !important;
+    max-width: 1140px !important; /* Standard Bootstrap-Breite */
+    margin: 0 auto !important; /* Zentriert die Inhalte perfekt */
+    display: block !important; 
     background: transparent !important;
 }
+
