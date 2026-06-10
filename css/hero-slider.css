@@ -677,65 +677,22 @@ Javascript disabled
 .no-js .cd-slider-nav {
   display: none;
 }
-/* =======================================================
-   1. GANZ OBEN AM START: Der schwarze Balken ist da
-   ======================================================= */
-/* Wir färben die Leiste und hängen den Schatten für die unendliche Breite an */
-.site-header, header.main-header, nav.navbar, .navbar-default {
-    background: rgba(0, 0, 0, 0.85) !important;
+/* Der schwarze Balken ganz oben am Start über die volle Breite */
+.header {
     background-color: rgba(0, 0, 0, 0.85) !important;
+    position: absolute !important;
     width: 100% !important;
     left: 0 !important;
     right: 0 !important;
 }
 
-/* Der unendlich breite Schatten links und rechts (NUR AM START) */
-.site-header::before, .site-header::after,
-header.main-header::before, header.main-header::after {
-    content: "" !important;
-    position: absolute !important;
-    top: 0 !important;
-    height: 100% !important;
-    width: 100vw !important;
-    background-color: rgba(0, 0, 0, 0.85) !important;
-    z-index: -1 !important;
-}
-.site-header::before, header.main-header::before { right: 100% !important; }
-.site-header::after, header.main-header::after { left: 100% !important; }
-
-/* Texte oben kräftig weiß */
-.site-header a, header.main-header a, .navbar-nav li a {
+/* Macht die Texte oben strahlend weiß */
+.header a {
     color: #ffffff !important;
+    font-weight: 600 !important;
 }
 
-
-/* =======================================================
-   2. BEIM RUNTERWISCHEN: Der schwarze Balken wird TRANSPARENT
-   ======================================================= */
-/* Sobald die ".is-sticky" oder ".sticky" Klasse vom Template aktiv wird,
-   machen wir alles, was wir oben gebaut haben, komplett unsichtbar! */
-.is-sticky .site-header, 
-.is-sticky header.main-header,
-header.main-header.is-sticky,
-header.main-header.sticky,
-.fixed, .sticky, .top-nav-collapse {
-    background: transparent !important;
-    background-color: transparent !important;
-}
-
-/* Schaltet die verlängerten Seitenflächen beim Scrollen komplett AUS */
-.is-sticky .site-header::before, .is-sticky .site-header::after,
-header.main-header.is-sticky::before, header.main-header.is-sticky::after,
-header.main-header.sticky::before, header.main-header.sticky::after {
-    background-color: transparent !important;
-    background: transparent !important;
-    display: none !important;
-}
-
-
-/* =======================================================
-   3. MITTE SCHÜTZEN: Logo und Text bleiben an ihrem Platz
-   ======================================================= */
-.site-header .container, header.main-header .container {
+/* Schützt das originale Raster, damit das Logo nicht nach außen rutscht */
+.header .container {
     background: transparent !important;
 }
