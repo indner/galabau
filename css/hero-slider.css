@@ -677,18 +677,23 @@ Javascript disabled
 .no-js .cd-slider-nav {
   display: none;
 }
-/* Erzeugt einen intelligenten, unendlich breiten Hintergrundbalken */
+/* Der Hauptbalken in der Mitte */
 .nav-container, 
 .site-header, 
 header, 
 .navbar-default,
 nav.navbar {
     position: relative !important;
-    background-color: rgba(0, 0, 0, 0.65) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+    /* Symmetrischer Verlauf: Außen hell (20%), zur Mitte hin perfekt dunkel (75%) */
+    background: linear-gradient(to right, 
+        rgba(0,0,0,0.2) 0%, 
+        rgba(0,0,0,0.75) 20%, 
+        rgba(0,0,0,0.75) 80%, 
+        rgba(0,0,0,0.2) 100%) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Der Trick für den durchgehenden Balken ohne Layout-Bruch */
+/* Die Verlängerung nach links und rechts mit dem exakt gleichen Verlauf */
 .nav-container::before, 
 .site-header::before, 
 header::before,
@@ -696,23 +701,26 @@ nav.navbar::before {
     content: "" !important;
     position: absolute !important;
     top: 0 !important;
-    /* Zwingt den Hintergrund auf 100% der Monitorbreite */
     left: 50% !important;
     transform: translateX(-50%) !important;
     width: 100vw !important; 
     height: 100% !important;
-    background-color: rgba(0, 0, 0, 0.65) !important;
-    z-index: -1 !important; /* Legt sich hinter die Schrift */
+    background: linear-gradient(to right, 
+        rgba(0,0,0,0.2) 0%, 
+        rgba(0,0,0,0.75) 20%, 
+        rgba(0,0,0,0.75) 80%, 
+        rgba(0,0,0,0.2) 100%) !important;
+    z-index: -1 !important;
 }
 
-/* Schützt das originale Verhalten von Logo und Menü */
+/* Schützt die originale Struktur von Logo und Menü */
 .site-header .container, 
 header .container, 
 .navbar .container {
     background: transparent !important;
 }
 
-/* Schriften perfekt lesbar einstellen */
+/* Perfekt lesbare Schriftfarben */
 .navbar-nav li a, 
 .nav li a, 
 .main-menu a,
