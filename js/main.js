@@ -66,13 +66,15 @@ jQuery(document).ready(function($) {
 
 
         $(window).on("scroll", function() {
-            if($(window).scrollTop() > 100) {
-                $(".header").addClass("active");
-            } else {
-                //remove the background property so it comes transparent again (defined in your css)
-               $(".header").removeClass("active");
-            }
-        });
+    if($(window).scrollTop() > 100) {
+        // Blendet den kompletten schwarzen Balken beim Runterwischen weich aus
+        $(".header").fadeOut(200); 
+    } else {
+        // Blendet den schwarzen Balken ganz oben am Start sofort wieder ein
+        $(".header").fadeIn(200);
+    }
+});
+    
 
 
 	/************** Mixitup (Filter Projects) *********************/
