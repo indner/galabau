@@ -680,19 +680,20 @@ Javascript disabled
 /* =======================================================
    1. ZUSTAND GANZ OBEN: Durchgehend Schwarz-Transparent
    ======================================================= */
-/* Spricht den Header an, solange er noch NICHT gescrollt ist */
-header.main-header:not(.is-sticky):not(.sticky):not(.fixed) {
-    background-color: rgba(0, 0, 0, 0.7) !important;
-    background: rgba(0, 0, 0, 0.7) !important;
+/* Wir sprechen radikal alle Klassen an, damit die richtige definitiv getroffen wird */
+header, .site-header, .main-header, .navbar, .navbar-default, .header-wrapper, .nav-container {
+    background-color: rgba(0, 0, 0, 0.75) !important;
+    background: rgba(0, 0, 0, 0.75) !important;
     width: 100% !important;
     left: 0 !important;
     right: 0 !important;
+    position: absolute !important;
+    top: 0 !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Weiße Schrift, solange man ganz oben steht */
-header.main-header:not(.is-sticky):not(.sticky):not(.fixed) a,
-header.main-header:not(.is-sticky):not(.sticky):not(.fixed) .navbar-nav li a {
+/* Alle Texte ganz oben werden strahlend weiß gezwungen */
+header a, .site-header a, .main-header a, .navbar a, .navbar-nav li a, .main-menu a {
     color: #ffffff !important;
     font-weight: 600 !important;
 }
@@ -701,38 +702,35 @@ header.main-header:not(.is-sticky):not(.sticky):not(.fixed) .navbar-nav li a {
 /* =======================================================
    2. ZUSTAND BEIM SCROLLEN: Durchgehend Weiß-Transparent
    ======================================================= */
-/* Spricht den Header an, SOBAID das Template die Scroll-Klasse aktiviert */
-header.main-header.is-sticky, 
-header.main-header.sticky, 
-header.main-header.fixed,
-.is-sticky header.main-header {
-    /* Ein edles, leicht transparentes Weiß (90% Deckkraft) */
-    background-color: rgba(255, 255, 255, 0.9) !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    width: 100% !important;
-    left: 0 !important;
-    right: 0 !important;
+/* Sobald die JavaScript-Scrollklassen aktiv werden, überschreiben wir zu Weiß */
+header.is-sticky, header.sticky, header.fixed,
+.site-header.is-sticky, .site-header.sticky, .site-header.fixed,
+.main-header.is-sticky, .main-header.sticky, .main-header.fixed,
+.navbar.is-sticky, .navbar.sticky, .navbar.fixed, .top-nav-collapse,
+.is-sticky header, .sticky header, .fixed header {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    position: fixed !important; /* Hält die Leiste beim Scrollen oben fest */
+    top: 0 !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Dunkelgraue Schrift beim Scrollen, damit man sie auf Weiß perfekt liest */
-header.main-header.is-sticky a, 
-header.main-header.sticky a, 
-header.main-header.fixed a,
-header.main-header.is-sticky .navbar-nav li a {
+/* Texte werden beim Scrollen dunkelgrau, passend zum neuen Logo */
+header.is-sticky a, header.sticky a, header.fixed a,
+.site-header.is-sticky a, .site-header.sticky a, .site-header.fixed a,
+.main-header.is-sticky a, .main-header.sticky a, .main-header.fixed a,
+.navbar.is-sticky a, .navbar.sticky a, .navbar-nav li a {
     color: #222222 !important;
-    font-weight: 600 !important;
 }
 
 
 /* =======================================================
-   3. STRUCTUR-SCHUTZ: Verhindert das Verrutschen von Logo/Menü
+   3. STRUKTUR-REPARATUR: Logo & Menü bleiben an ihren Plätzen
    ======================================================= */
-.site-header .container, 
-header.main-header .container, 
-.navbar .container {
-    width: auto !important; 
+/* Das bricht das verengte Box-System auf, ohne dass das Logo nach außen rutscht */
+header .container, .site-header .container, .main-header .container, .navbar .container {
+    width: auto !important;
     max-width: 100% !important;
-    display: block !important; /* Reaktiviert das originale Template-Raster */
+    display: block !important; /* Nutzt wieder das originale Bootstrap-Raster */
     background: transparent !important;
 }
