@@ -677,55 +677,31 @@ Javascript disabled
 .no-js .cd-slider-nav {
   display: none;
 }
-/* Der Hauptbalken in der Mitte */
-.nav-container, 
-.site-header, 
-header, 
-.navbar-default,
-nav.navbar {
-    position: relative !important;
-    /* Symmetrischer Verlauf: Außen hell (20%), zur Mitte hin perfekt dunkel (75%) */
-    background: linear-gradient(to right, 
-        rgba(0,0,0,0.2) 0%, 
-        rgba(0,0,0,0.75) 20%, 
-        rgba(0,0,0,0.75) 80%, 
-        rgba(0,0,0,0.2) 100%) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+/* 1. ELEGANTER SCHUTZ NUR GANZ OBEN (WENN NICHT GESCROLLT) */
+.site-header:not(.fixed), 
+header:not(.sticky), 
+nav.navbar:not(.top-nav-collapse) {
+    /* Ein sanfter Schatten-Verlauf von oben (70% schwarz) nach unten (komplett transparent) */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%) !important;
+    box-shadow: none !important;
+    padding-top: 20px !important;
+    padding-bottom: 40px !important; /* Gibt dem Verlauf Raum zum Auslaufen */
 }
 
-/* Die Verlängerung nach links und rechts mit dem exakt gleichen Verlauf */
-.nav-container::before, 
-.site-header::before, 
-header::before,
-nav.navbar::before {
-    content: "" !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    width: 100vw !important; 
-    height: 100% !important;
-    background: linear-gradient(to right, 
-        rgba(0,0,0,0.2) 0%, 
-        rgba(0,0,0,0.75) 20%, 
-        rgba(0,0,0,0.75) 80%, 
-        rgba(0,0,0,0.2) 100%) !important;
-    z-index: -1 !important;
-}
-
-/* Schützt die originale Struktur von Logo und Menü */
-.site-header .container, 
-header .container, 
-.navbar .container {
-    background: transparent !important;
-}
-
-/* Perfekt lesbare Schriftfarben */
-.navbar-nav li a, 
-.nav li a, 
-.main-menu a,
-.navbar-brand,
-.logo a {
+/* Zusätzlicher, feiner Textschatten für maximale Schärfe am oberen Rand */
+.site-header:not(.fixed) a, 
+header:not(.sticky) a, 
+nav.navbar:not(.top-nav-collapse) .navbar-nav li a {
     color: #ffffff !important;
     font-weight: 600 !important;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* 2. AUTOMATISCHER WECHSEL BEIM RUNTERWISCHEN (SCROLLEN) */
+/* Hier erlauben wir dem Meteor-Template, seine originalen Scroll-Klassen zu nutzen */
+.site-header.fixed, 
+header.sticky, 
+nav.navbar.top-nav-collapse {
+    background: transparent !important; /* Wird beim Scrollen wieder komplett transparent */
+    box-shadow: none !important;
 }
