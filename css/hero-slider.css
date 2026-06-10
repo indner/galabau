@@ -678,80 +678,73 @@ Javascript disabled
   display: none;
 }
 /* =======================================================
-   1. DER SCHWARZE BALKEN GANZ OBEN (Start-Zustand)
+   1. ZUSTAND GANZ OBEN: Durchgehend Schwarz-Transparent
    ======================================================= */
-/* Färbt die Leiste oben transparent-schwarz */
-header, .site-header, .main-header, .navbar {
+/* Das ist die echte, unendlich breite Außenleiste im Meteor-Template */
+.site-header, header.main-header {
     background-color: rgba(0, 0, 0, 0.75) !important;
     background: rgba(0, 0, 0, 0.75) !important;
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
 }
 
-/* Verhindert helle Ränder des originalen Bootstrap-Menüs */
-.navbar-default {
+/* Verhindert, dass das innere Bootstrap-Menü einen weißen Kasten erzeugt */
+.navbar-default, .navbar {
+    background: transparent !important;
     background-color: transparent !important;
     border: none !important;
+    box-shadow: none !important;
 }
 
-/* Macht die Flügel links und rechts transparent-schwarz */
-header::before, header::after,
-.site-header::before, .site-header::after,
-.main-header::before, .main-header::after {
-    content: "" !important;
-    position: absolute !important;
-    top: 0 !important;
-    height: 100% !important;
-    width: 100vw !important; /* Dehnt die Flügel unendlich weit aus */
-    background-color: rgba(0, 0, 0, 0.75) !important;
-    z-index: -1 !important;
-}
-header::before, .site-header::before { right: 100% !important; }
-header::after, .site-header::after { left: 100% !important; }
-
-/* Texte oben strahlend weiß */
-header a, .site-header a, .navbar-nav li a {
+/* Texte ganz oben strahlend weiß */
+.site-header a, header.main-header a, .navbar-nav li a {
     color: #ffffff !important;
     font-weight: 600 !important;
 }
 
 
 /* =======================================================
-   2. DER WEISSE BALKEN BEIM RUNTERWISCHEN (Scroll-Zustand)
+   2. ZUSTAND BEIM SCROLLEN: Durchgehend reines Weiß
    ======================================================= */
-/* Schaltet die Hauptleiste beim Scrollen auf reines Weiß um */
-header.is-sticky, header.sticky, header.fixed,
-.site-header.is-sticky, .site-header.sticky, .site-header.fixed,
-.main-header.is-sticky, .main-header.sticky, .main-header.fixed,
-.is-sticky header, .sticky header, .fixed header {
+/* Sobald Sie wischen, färben wir die komplette Außenleiste weiß */
+.site-header.is-sticky, 
+header.main-header.is-sticky,
+.is-sticky .site-header,
+.is-sticky header.main-header {
     background-color: #ffffff !important;
     background: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Zwingt die Flügel links und rechts beim Scrollen ebenfalls auf reines Weiß */
-header.is-sticky::before, header.is-sticky::after,
-header.sticky::before, header.sticky::after,
-header.fixed::before, header.fixed::after,
+/* Der Flügel-Trick: Zwingt die Ränder beim Scrollen ebenfalls auf Weiß */
 .site-header.is-sticky::before, .site-header.is-sticky::after,
-.main-header.is-sticky::before, .main-header.is-sticky::after {
+header.main-header.is-sticky::before, header.main-header.is-sticky::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    height: 100% !important;
+    width: 100vw !important;
     background-color: #ffffff !important;
-    background: #ffffff !important;
+    z-index: -1 !important;
 }
+.site-header.is-sticky::before { right: 100% !important; }
+.site-header.is-sticky::after { left: 100% !important; }
 
-/* Schriften werden beim Scrollen dunkelgrau (damit man sie auf weiß sieht) */
-header.is-sticky a, header.sticky a, header.fixed a,
-.site-header.is-sticky a, .main-header.is-sticky a,
-.is-sticky .navbar-nav li a, .sticky .navbar-nav li a {
+/* Texte beim Scrollen dunkelgrau für das schwarze Logo */
+.site-header.is-sticky a, 
+header.main-header.is-sticky a, 
+.is-sticky .navbar-nav li a {
     color: #222222 !important;
 }
 
 
 /* =======================================================
-   3. STABILISATOR: CONTAINER VÖLLIG UNBERÜHRT LASSEN
+   3. CONTAINER-RETTUNG: Kein Verrutschen von Logo & Text
    ======================================================= */
-/* Wir löschen alle alten Layout-Experimente, damit Bootstrap die volle Kontrolle hat */
-header .container, .site-header .container, .navbar .container {
+/* Wir fassen den inneren Container nicht an, damit Bootstrap alles zentriert hält */
+.site-header .container, 
+header.main-header .container,
+.navbar-header {
     background: transparent !important;
-    display: block !important;
-    width: auto !important;
-    max-width: none !important;
-    margin: 0 auto !important;
 }
