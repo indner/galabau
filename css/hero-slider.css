@@ -677,59 +677,65 @@ Javascript disabled
 .no-js .cd-slider-nav {
   display: none;
 }
-/* =======================================================
-   1. ZUSTAND: GANZ OBEN (Textschutz über dem Blätterdach)
+css/* =======================================================
+   1. NUR GANZ OBEN: Echter Schutz über dem Blätterdach
    ======================================================= */
-.site-header, 
-header.main-header, 
-nav.navbar {
-    /* Kein Balken! Nur ein weicher Schatten von oben nach unten hinter Logo/Text */
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 100%) !important;
-    box-shadow: none !important;
-    transition: all 0.3s ease-in-out !important;
+/* Wir erstellen einen unendlich breiten Schatten, der NUR ganz oben existiert */
+header.main-header:not(.is-sticky):not(.sticky):not(.fixed) {
+    background: transparent !important; /* Der Header selbst bleibt unsichtbar */
+    position: absolute !important;
+    width: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
 }
 
-/* Texte oben kräftig weiß */
-.site-header a, 
-header.main-header a, 
-nav.navbar .navbar-nav li a {
+/* Dieser Teil erzeugt den durchgehenden Schatten-Teppich von ganz links bis ganz rechts */
+header.main-header:not(.is-sticky):not(.sticky):not(.fixed)::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100vw !important; /* Zwingt den Verlauf über die volle Monitorbreite */
+    height: 140px !important; /* Höhe des weichen Schattens */
+    /* Ein sehr weicher Verlauf von oben nach unten, der zu den Seiten hin nicht abbricht */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%) !important;
+    z-index: -1 !important;
+}
+
+/* Schriftfarben ganz oben strahlend weiß */
+header.main-header:not(.is-sticky):not(.sticky):not(.fixed) a {
     color: #ffffff !important;
     font-weight: 600 !important;
 }
 
 
 /* =======================================================
-   2. ZUSTAND: BEIM RUNTERWISCHEN / SCROLLEN 
+   2. BEIM RUNTERWISCHEN / SCROLLEN: Komplett transparent
    ======================================================= */
-/* Hier sprechen wir alle Klassen an, die Meteor beim Scrollen nutzt (.is-sticky, .fixed, .sticky) */
-.site-header.is-sticky, 
-.site-header.fixed, 
-header.main-header.sticky, 
+/* Sobald Tooplate/Meteor die Scroll-Klassen aktiviert, zerstören wir den Verlauf vollständig */
 header.main-header.is-sticky,
-nav.navbar.top-nav-collapse {
-    /* Wird beim Scrollen wieder komplett durchsichtig */
-    background: transparent !important; 
+header.main-header.sticky,
+header.main-header.fixed,
+.is-sticky header.main-header,
+.sticky header.main-header {
+    background: transparent !important;
     background-color: transparent !important;
     box-shadow: none !important;
 }
 
-/* Option: Falls die Schrift beim Scrollen dunkel werden soll, damit man sie auf weißem Grund sieht: */
-.site-header.is-sticky a, 
-.site-header.fixed a, 
-header.main-header.sticky a, 
-nav.navbar.top-nav-collapse .navbar-nav li a {
-    text-shadow: none !important;
+/* Schaltet den künstlichen Hintergrundbalken beim Scrollen unsichtbar */
+header.main-header.is-sticky::before,
+header.main-header.sticky::before,
+header.main-header.fixed::before {
+    display: none !important;
+    content: none !important;
 }
 
-
-/* =======================================================
-   3. SCHUTZ FÜR DAS LOGO (Verhindert das Verrutschen)
-   ======================================================= */
-/* Wir verbieten dem inneren Container, seine originale Breite zu verlieren */
-.site-header .container, 
-header.main-header .container, 
-.navbar .container {
-    width: auto !important; 
-    max-width: 100% !important;
-    display: block !important; /* Zurück zum sicheren Standard-Layout */
+/* Falls die Schrift beim Scrollen im weißen Bereich schwarz werden muss: */
+header.main-header.is-sticky a,
+header.main-header.sticky a,
+header.main-header.fixed a {
+    color: #333333 !important; /* Macht Text dunkel auf weißem Grund */
+    text-shadow: none !important;
 }
