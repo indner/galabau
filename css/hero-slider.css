@@ -678,60 +678,44 @@ Javascript disabled
   display: none;
 }
 /* =======================================================
-   1. GANZ OBEN: Radikales Schwarz über die gesamte Breite
+   1. NUR GANZ OBEN AM START: Der schwarze Balken ist da
    ======================================================= */
-/* Wir zwingen JEDES Menü-Element auf der Seite auf Schwarz-Transparent */
-body nav, body header, .navbar, .site-header, .main-header {
+/* Wir erstellen den unendlich breiten, schwarzen Balken NUR für den Startzustand */
+body nav:not([class*="sticky"]):not([class*="fixed"]), 
+body header:not([class*="sticky"]):not([class*="fixed"]), 
+.site-header:not(.is-sticky):not(.sticky), 
+.main-header:not(.is-sticky):not(.sticky) {
     background: rgba(0, 0, 0, 0.85) !important;
     background-color: rgba(0, 0, 0, 0.85) !important;
     
-    /* Der ultimative Trick: Dehnt die Farbe unendlich weit nach links und rechts aus */
+    /* Der funktionierende Schatten-Trick für die unendliche Breite links & rechts */
     box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.85) !important;
     clip-path: inset(0 -100vmax) !important;
-    
-    border: none !important;
 }
 
-/* Alle Texte ganz oben werden strahlend weiß */
-body nav a, body header a, .navbar-nav li a {
+/* Texte ganz oben am Start sind kräftig weiß */
+body nav:not([class*="sticky"]):not([class*="fixed"]) a, 
+body header:not([class*="sticky"]):not([class*="fixed"]) a,
+.navbar-nav li a {
     color: #ffffff !important;
     font-weight: 600 !important;
 }
 
 
 /* =======================================================
-   2. BEIM RUNTERWISCHEN: Umschalten auf reines Weiß
+   2. BEIM RUNTERWISCHEN (SCROLLEN): Der schwarze Balken verschwindet komplett
    ======================================================= */
-/* Wir sprechen absolut jede Variante an, wie das Template das Scrollen nennt */
+/* Sobald das Template nach unten scrollt und eine Scroll-Klasse aktiviert, 
+   schalten wir unseren schwarzen Balken und die Schatten-Ränder radikal AUS */
 body [class*="sticky"] nav, 
 body [class*="sticky"] header,
 body [class*="scroll"] nav,
 body [class*="fixed"] nav,
-nav[class*="collapse"],
 .is-sticky, .sticky, .fixed, .top-nav-collapse {
-    background: #ffffff !important;
-    background-color: #ffffff !important;
-    
-    /* Schaltet auch die unendliche Breite links und rechts auf reines Weiß um */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 0 100vmax #ffffff !important;
-    clip-path: inset(0 -100vmax) !important;
-}
-
-/* Alle Texte werden beim Scrollen sofort dunkel/schwarz */
-body [class*="sticky"] a, 
-body [class*="scroll"] a, 
-body [class*="fixed"] a,
-.is-sticky a, .sticky a, .top-nav-collapse a,
-header[class*="sticky"] a, nav[class*="collapse"] a {
-    color: #111111 !important;
-}
-
-
-/* =======================================================
-   3. CONTAINER SCHÜTZEN: Logo & Text bleiben in der Mitte
-   ======================================================= */
-/* Wir berühren die Breiten der inneren Boxen nicht, damit nichts verrutscht */
-.container, .navbar-header, .navbar-collapse {
     background: transparent !important;
     background-color: transparent !important;
+    
+    /* Löscht die schwarzen Schatten-Ränder links und rechts komplett */
+    box-shadow: none !important;
+    clip-path: none !important;
 }
