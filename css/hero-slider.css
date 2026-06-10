@@ -678,44 +678,64 @@ Javascript disabled
   display: none;
 }
 /* =======================================================
-   1. NUR GANZ OBEN AM START: Der schwarze Balken ist da
+   1. GANZ OBEN AM START: Der schwarze Balken ist da
    ======================================================= */
-/* Wir erstellen den unendlich breiten, schwarzen Balken NUR für den Startzustand */
-body nav:not([class*="sticky"]):not([class*="fixed"]), 
-body header:not([class*="sticky"]):not([class*="fixed"]), 
-.site-header:not(.is-sticky):not(.sticky), 
-.main-header:not(.is-sticky):not(.sticky) {
+/* Wir färben die Leiste und hängen den Schatten für die unendliche Breite an */
+.site-header, header.main-header, nav.navbar, .navbar-default {
     background: rgba(0, 0, 0, 0.85) !important;
     background-color: rgba(0, 0, 0, 0.85) !important;
-    
-    /* Der funktionierende Schatten-Trick für die unendliche Breite links & rechts */
-    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.85) !important;
-    clip-path: inset(0 -100vmax) !important;
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
 }
 
-/* Texte ganz oben am Start sind kräftig weiß */
-body nav:not([class*="sticky"]):not([class*="fixed"]) a, 
-body header:not([class*="sticky"]):not([class*="fixed"]) a,
-.navbar-nav li a {
+/* Der unendlich breite Schatten links und rechts (NUR AM START) */
+.site-header::before, .site-header::after,
+header.main-header::before, header.main-header::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    height: 100% !important;
+    width: 100vw !important;
+    background-color: rgba(0, 0, 0, 0.85) !important;
+    z-index: -1 !important;
+}
+.site-header::before, header.main-header::before { right: 100% !important; }
+.site-header::after, header.main-header::after { left: 100% !important; }
+
+/* Texte oben kräftig weiß */
+.site-header a, header.main-header a, .navbar-nav li a {
     color: #ffffff !important;
-    font-weight: 600 !important;
 }
 
 
 /* =======================================================
-   2. BEIM RUNTERWISCHEN (SCROLLEN): Der schwarze Balken verschwindet komplett
+   2. BEIM RUNTERWISCHEN: Der schwarze Balken wird TRANSPARENT
    ======================================================= */
-/* Sobald das Template nach unten scrollt und eine Scroll-Klasse aktiviert, 
-   schalten wir unseren schwarzen Balken und die Schatten-Ränder radikal AUS */
-body [class*="sticky"] nav, 
-body [class*="sticky"] header,
-body [class*="scroll"] nav,
-body [class*="fixed"] nav,
-.is-sticky, .sticky, .fixed, .top-nav-collapse {
+/* Sobald die ".is-sticky" oder ".sticky" Klasse vom Template aktiv wird,
+   machen wir alles, was wir oben gebaut haben, komplett unsichtbar! */
+.is-sticky .site-header, 
+.is-sticky header.main-header,
+header.main-header.is-sticky,
+header.main-header.sticky,
+.fixed, .sticky, .top-nav-collapse {
     background: transparent !important;
     background-color: transparent !important;
-    
-    /* Löscht die schwarzen Schatten-Ränder links und rechts komplett */
-    box-shadow: none !important;
-    clip-path: none !important;
+}
+
+/* Schaltet die verlängerten Seitenflächen beim Scrollen komplett AUS */
+.is-sticky .site-header::before, .is-sticky .site-header::after,
+header.main-header.is-sticky::before, header.main-header.is-sticky::after,
+header.main-header.sticky::before, header.main-header.sticky::after {
+    background-color: transparent !important;
+    background: transparent !important;
+    display: none !important;
+}
+
+
+/* =======================================================
+   3. MITTE SCHÜTZEN: Logo und Text bleiben an ihrem Platz
+   ======================================================= */
+.site-header .container, header.main-header .container {
+    background: transparent !important;
 }
