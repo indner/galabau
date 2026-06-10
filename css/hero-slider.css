@@ -677,33 +677,47 @@ Javascript disabled
 .no-js .cd-slider-nav {
   display: none;
 }
-/* Der durchgehende Balken über das echte Template-Gehäuse */
-.main-header, 
+/* Erzeugt einen intelligenten, unendlich breiten Hintergrundbalken */
+.nav-container, 
 .site-header, 
-nav.navbar, 
-.navbar-static-top,
-.navbar-fixed-top {
-    background-color: rgba(0, 0, 0, 0.65) !important; /* Balken-Tönung */
-    background: rgba(0, 0, 0, 0.65) !important;
+header, 
+.navbar-default,
+nav.navbar {
+    position: relative !important;
+    background-color: rgba(0, 0, 0, 0.65) !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* Gibt dem Balken eine schöne Höhe, ohne das Layout zu brechen */
-.main-header, .site-header {
-    padding: 10px 0 !important;
+/* Der Trick für den durchgehenden Balken ohne Layout-Bruch */
+.nav-container::before, 
+.site-header::before, 
+header::before,
+nav.navbar::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    /* Zwingt den Hintergrund auf 100% der Monitorbreite */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100vw !important; 
+    height: 100% !important;
+    background-color: rgba(0, 0, 0, 0.65) !important;
+    z-index: -1 !important; /* Legt sich hinter die Schrift */
 }
 
-/* Verhindert, dass der innere Bereich den Balken wieder weiß färbt */
-.main-header .container, 
-.site-header .container {
+/* Schützt das originale Verhalten von Logo und Menü */
+.site-header .container, 
+header .container, 
+.navbar .container {
     background: transparent !important;
 }
 
-/* Garantiert strahlend weiße und gut lesbare Schrift */
+/* Schriften perfekt lesbar einstellen */
 .navbar-nav li a, 
 .nav li a, 
-.main-menu a {
+.main-menu a,
+.navbar-brand,
+.logo a {
     color: #ffffff !important;
     font-weight: 600 !important;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
 }
