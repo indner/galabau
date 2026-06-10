@@ -67,11 +67,11 @@ jQuery(document).ready(function($) {
 
         $(window).on("scroll", function() {
     if($(window).scrollTop() > 100) {
-        // Blendet den kompletten schwarzen Balken beim Runterwischen weich aus
-        $(".header").fadeOut(200); 
+        // Fügt die Klasse hinzu, damit die Bar kompakt/anders gestylt mitläuft
+        $(".header").addClass("active");
     } else {
-        // Blendet den schwarzen Balken ganz oben am Start sofort wieder ein
-        $(".header").fadeIn(200);
+        // Entfernt die Klasse wieder, wenn du ganz oben bist
+        $(".header").removeClass("active");
     }
 });
     
