@@ -678,73 +678,52 @@ Javascript disabled
   display: none;
 }
 /* =======================================================
-   1. ZUSTAND GANZ OBEN: Durchgehend Schwarz-Transparent
+   1. GANZ OBEN: Der Balken ist Schwarz-Transparent
    ======================================================= */
-/* Das ist die echte, unendlich breite Außenleiste im Meteor-Template */
-.site-header, header.main-header {
-    background-color: rgba(0, 0, 0, 0.75) !important;
-    background: rgba(0, 0, 0, 0.75) !important;
+header.main-header, .site-header, nav.navbar, .navbar-default {
+    background: rgba(0, 0, 0, 0.8) !important; /* 80% echtes Schwarz, leicht transparent */
+    background-color: rgba(0, 0, 0, 0.8) !important;
     width: 100% !important;
     left: 0 !important;
     right: 0 !important;
-}
-
-/* Verhindert, dass das innere Bootstrap-Menü einen weißen Kasten erzeugt */
-.navbar-default, .navbar {
-    background: transparent !important;
-    background-color: transparent !important;
     border: none !important;
-    box-shadow: none !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Texte ganz oben strahlend weiß */
-.site-header a, header.main-header a, .navbar-nav li a {
+/* Schriftfarbe ganz oben ist strahlend weiß */
+header.main-header a, .site-header a, .navbar-nav li a {
     color: #ffffff !important;
     font-weight: 600 !important;
 }
 
 
 /* =======================================================
-   2. ZUSTAND BEIM SCROLLEN: Durchgehend reines Weiß
+   2. BEIM RUNTERWISCHEN: Der Balken wechselt auf reines Weiß
    ======================================================= */
-/* Sobald Sie wischen, färben wir die komplette Außenleiste weiß */
-.site-header.is-sticky, 
-header.main-header.is-sticky,
-.is-sticky .site-header,
-.is-sticky header.main-header {
+/* Hier greifen wir alle Scroll-Klassen ab und zwingen sie auf echtes Weiß */
+header.main-header.is-sticky, header.main-header.sticky, header.main-header.fixed,
+.site-header.is-sticky, .site-header.sticky, .site-header.fixed,
+.is-sticky header, .sticky header, .fixed header,
+.is-sticky .site-header, .top-nav-collapse {
+    background: #ffffff !important; /* Reines, deckendes Weiß */
     background-color: #ffffff !important;
-    background: #ffffff !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Der Flügel-Trick: Zwingt die Ränder beim Scrollen ebenfalls auf Weiß */
-.site-header.is-sticky::before, .site-header.is-sticky::after,
-header.main-header.is-sticky::before, header.main-header.is-sticky::after {
-    content: "" !important;
-    position: absolute !important;
-    top: 0 !important;
-    height: 100% !important;
-    width: 100vw !important;
-    background-color: #ffffff !important;
-    z-index: -1 !important;
-}
-.site-header.is-sticky::before { right: 100% !important; }
-.site-header.is-sticky::after { left: 100% !important; }
-
-/* Texte beim Scrollen dunkelgrau für das schwarze Logo */
-.site-header.is-sticky a, 
-header.main-header.is-sticky a, 
-.is-sticky .navbar-nav li a {
-    color: #222222 !important;
+/* Schriftfarbe beim Wischen wird dunkel, passend zum dunklen Logo */
+header.main-header.is-sticky a, header.main-header.sticky a, header.main-header.fixed a,
+.site-header.is-sticky a, .is-sticky a, .sticky a, .top-nav-collapse a {
+    color: #222222 !important; /* Dunkles Anthrazit/Schwarz für die Schrift */
 }
 
 
 /* =======================================================
-   3. CONTAINER-RETTUNG: Kein Verrutschen von Logo & Text
+   3. STRUCTUR-RETTER: Inhalt bleibt perfekt zentriert (kein Verrutschen)
    ======================================================= */
-/* Wir fassen den inneren Container nicht an, damit Bootstrap alles zentriert hält */
-.site-header .container, 
-header.main-header .container,
-.navbar-header {
+header .container, .site-header .container, .navbar .container {
+    width: 100% !important;
+    max-width: 1140px !important; /* Hält Logo & Text in der Mitte */
+    margin: 0 auto !important;
+    display: block !important;
     background: transparent !important;
 }
