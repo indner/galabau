@@ -678,66 +678,72 @@ Javascript disabled
   display: none;
 }
 /* =======================================================
-   1. ZUSTAND GANZ OBEN: Durchgehend Schwarz-Transparent
+   1. DAS ORIGINAL-LAYOUT SCHÜTZEN & HINTERGRÜNDE SETZEN
    ======================================================= */
-header, .site-header, .main-header, .navbar, .navbar-default, .header-wrapper, .nav-container {
+/* Oben: Transparent-Schwarz für das Hauptmenü */
+header, .site-header, .main-header, .navbar, .navbar-default {
     background-color: rgba(0, 0, 0, 0.75) !important;
     background: rgba(0, 0, 0, 0.75) !important;
-    width: 100% !important;
-    left: 0 !important;
-    right: 0 !important;
     position: absolute !important;
     top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Texte oben kräftig weiß */
-header a, .site-header a, .main-header a, .navbar a, .navbar-nav li a, .main-menu a {
+/* Scrollen: Umschalten auf reines Weiß für das Hauptmenü */
+header.is-sticky, header.sticky, header.fixed,
+.site-header.is-sticky, .site-header.sticky, .site-header.fixed,
+.main-header.is-sticky, .main-header.sticky, .main-header.fixed,
+.navbar.is-sticky, .navbar.sticky, .navbar.fixed, .top-nav-collapse {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    position: fixed !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* =======================================================
+   2. DIE ZWEI FLÜGEL LINKS & RECHTS (Füllen die Seiten auf)
+   ======================================================= */
+/* Wir hängen die zwei Blöcke links und rechts an */
+header::before, header::after,
+.site-header::before, .site-header::after,
+.main-header::before, .main-header::after,
+.navbar::before, .navbar::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    height: 100% !important;
+    width: 100vw !important; /* Machen sie unendlich breit */
+    /* Sie erben automatisch die Hintergrundfarbe (Schwarz oder Weiß beim Scrollen) */
+    background: inherit !important; 
+    background-color: inherit !important;
+    z-index: -1 !important; /* Liegen hinter dem eigentlichen Inhalt */
+}
+
+/* Der linke Flügel dockt ganz links an */
+header::before, .site-header::before, .main-header::before, .navbar::before {
+    right: 100% !important;
+}
+
+/* Der rechte Flügel dockt ganz rechts an */
+header::after, .site-header::after, .main-header::after, .navbar::after {
+    left: 100% !important;
+}
+
+/* =======================================================
+   3. SCHRIFTFARBEN ANPASSEN
+   ======================================================= */
+/* Oben: Weißer Text */
+header a, .site-header a, .main-header a, .navbar a, .navbar-nav li a {
     color: #ffffff !important;
     font-weight: 600 !important;
 }
 
-
-/* =======================================================
-   2. ZUSTAND BEIM SCROLLEN: Jetzt sauberes, echtes Weiß
-   ======================================================= */
-header.is-sticky, header.sticky, header.fixed,
-.site-header.is-sticky, .site-header.sticky, .site-header.fixed,
-.main-header.is-sticky, .main-header.sticky, .main-header.fixed,
-.navbar.is-sticky, .navbar.sticky, .navbar.fixed, .top-nav-collapse,
-.is-sticky header, .sticky header, .fixed header {
-    background-color: #ffffff !important;
-    background: #ffffff !important;
-    position: fixed !important;
-    top: 0 !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
-}
-
-/* Texte werden beim Scrollen dunkelgrau (passend zum dunklen Logo) */
+/* Scrollen: Dunkler Text */
 header.is-sticky a, header.sticky a, header.fixed a,
 .site-header.is-sticky a, .site-header.sticky a, .site-header.fixed a,
 .main-header.is-sticky a, .main-header.sticky a, .main-header.fixed a,
 .navbar.is-sticky a, .navbar.sticky a, .navbar-nav li a {
     color: #222222 !important;
-}
-
-
-/* =======================================================
-   3. STRUKTUR-REPARATUR: Logo bleibt links, Menü bleibt rechts
-   ======================================================= */
-header .container, .site-header .container, .main-header .container, .navbar .container {
-    width: 100% !important;
-    max-width: 1140px !important;
-    margin: 0 auto !important;
-    background: transparent !important;
-    /* Nutzt Bootstrap Floats, damit das Logo links und Menü rechts bleibt */
-    display: block !important; 
-}
-
-/* Zwingt das originale Links/Rechts-Raster von Bootstrap zurück */
-header .navbar-header, .site-header .navbar-header, .navbar-brand, .logo {
-    float: left !important;
-}
-header .navbar-collapse, .site-header .navbar-collapse, .main-menu, .navbar-right {
-    float: right !important;
 }
