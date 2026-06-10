@@ -678,72 +678,80 @@ Javascript disabled
   display: none;
 }
 /* =======================================================
-   1. DAS ORIGINAL-LAYOUT SCHÜTZEN & HINTERGRÜNDE SETZEN
+   1. DER SCHWARZE BALKEN GANZ OBEN (Start-Zustand)
    ======================================================= */
-/* Oben: Transparent-Schwarz für das Hauptmenü */
-header, .site-header, .main-header, .navbar, .navbar-default {
+/* Färbt die Leiste oben transparent-schwarz */
+header, .site-header, .main-header, .navbar {
     background-color: rgba(0, 0, 0, 0.75) !important;
     background: rgba(0, 0, 0, 0.75) !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Scrollen: Umschalten auf reines Weiß für das Hauptmenü */
-header.is-sticky, header.sticky, header.fixed,
-.site-header.is-sticky, .site-header.sticky, .site-header.fixed,
-.main-header.is-sticky, .main-header.sticky, .main-header.fixed,
-.navbar.is-sticky, .navbar.sticky, .navbar.fixed, .top-nav-collapse {
-    background-color: #ffffff !important;
-    background: #ffffff !important;
-    position: fixed !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+/* Verhindert helle Ränder des originalen Bootstrap-Menüs */
+.navbar-default {
+    background-color: transparent !important;
+    border: none !important;
 }
 
-/* =======================================================
-   2. DIE ZWEI FLÜGEL LINKS & RECHTS (Füllen die Seiten auf)
-   ======================================================= */
-/* Wir hängen die zwei Blöcke links und rechts an */
+/* Macht die Flügel links und rechts transparent-schwarz */
 header::before, header::after,
 .site-header::before, .site-header::after,
-.main-header::before, .main-header::after,
-.navbar::before, .navbar::after {
+.main-header::before, .main-header::after {
     content: "" !important;
     position: absolute !important;
     top: 0 !important;
     height: 100% !important;
-    width: 100vw !important; /* Machen sie unendlich breit */
-    /* Sie erben automatisch die Hintergrundfarbe (Schwarz oder Weiß beim Scrollen) */
-    background: inherit !important; 
-    background-color: inherit !important;
-    z-index: -1 !important; /* Liegen hinter dem eigentlichen Inhalt */
+    width: 100vw !important; /* Dehnt die Flügel unendlich weit aus */
+    background-color: rgba(0, 0, 0, 0.75) !important;
+    z-index: -1 !important;
 }
+header::before, .site-header::before { right: 100% !important; }
+header::after, .site-header::after { left: 100% !important; }
 
-/* Der linke Flügel dockt ganz links an */
-header::before, .site-header::before, .main-header::before, .navbar::before {
-    right: 100% !important;
-}
-
-/* Der rechte Flügel dockt ganz rechts an */
-header::after, .site-header::after, .main-header::after, .navbar::after {
-    left: 100% !important;
-}
-
-/* =======================================================
-   3. SCHRIFTFARBEN ANPASSEN
-   ======================================================= */
-/* Oben: Weißer Text */
-header a, .site-header a, .main-header a, .navbar a, .navbar-nav li a {
+/* Texte oben strahlend weiß */
+header a, .site-header a, .navbar-nav li a {
     color: #ffffff !important;
     font-weight: 600 !important;
 }
 
-/* Scrollen: Dunkler Text */
+
+/* =======================================================
+   2. DER WEISSE BALKEN BEIM RUNTERWISCHEN (Scroll-Zustand)
+   ======================================================= */
+/* Schaltet die Hauptleiste beim Scrollen auf reines Weiß um */
+header.is-sticky, header.sticky, header.fixed,
+.site-header.is-sticky, .site-header.sticky, .site-header.fixed,
+.main-header.is-sticky, .main-header.sticky, .main-header.fixed,
+.is-sticky header, .sticky header, .fixed header {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+}
+
+/* Zwingt die Flügel links und rechts beim Scrollen ebenfalls auf reines Weiß */
+header.is-sticky::before, header.is-sticky::after,
+header.sticky::before, header.sticky::after,
+header.fixed::before, header.fixed::after,
+.site-header.is-sticky::before, .site-header.is-sticky::after,
+.main-header.is-sticky::before, .main-header.is-sticky::after {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+}
+
+/* Schriften werden beim Scrollen dunkelgrau (damit man sie auf weiß sieht) */
 header.is-sticky a, header.sticky a, header.fixed a,
-.site-header.is-sticky a, .site-header.sticky a, .site-header.fixed a,
-.main-header.is-sticky a, .main-header.sticky a, .main-header.fixed a,
-.navbar.is-sticky a, .navbar.sticky a, .navbar-nav li a {
+.site-header.is-sticky a, .main-header.is-sticky a,
+.is-sticky .navbar-nav li a, .sticky .navbar-nav li a {
     color: #222222 !important;
+}
+
+
+/* =======================================================
+   3. STABILISATOR: CONTAINER VÖLLIG UNBERÜHRT LASSEN
+   ======================================================= */
+/* Wir löschen alle alten Layout-Experimente, damit Bootstrap die volle Kontrolle hat */
+header .container, .site-header .container, .navbar .container {
+    background: transparent !important;
+    display: block !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 auto !important;
 }
