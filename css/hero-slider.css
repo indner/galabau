@@ -677,65 +677,62 @@ Javascript disabled
 .no-js .cd-slider-nav {
   display: none;
 }
-css/* =======================================================
-   1. NUR GANZ OBEN: Echter Schutz über dem Blätterdach
+/* =======================================================
+   1. ZUSTAND GANZ OBEN: Durchgehend Schwarz-Transparent
    ======================================================= */
-/* Wir erstellen einen unendlich breiten Schatten, der NUR ganz oben existiert */
+/* Spricht den Header an, solange er noch NICHT gescrollt ist */
 header.main-header:not(.is-sticky):not(.sticky):not(.fixed) {
-    background: transparent !important; /* Der Header selbst bleibt unsichtbar */
-    position: absolute !important;
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    background: rgba(0, 0, 0, 0.7) !important;
     width: 100% !important;
     left: 0 !important;
-    top: 0 !important;
+    right: 0 !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Dieser Teil erzeugt den durchgehenden Schatten-Teppich von ganz links bis ganz rechts */
-header.main-header:not(.is-sticky):not(.sticky):not(.fixed)::before {
-    content: "" !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    width: 100vw !important; /* Zwingt den Verlauf über die volle Monitorbreite */
-    height: 140px !important; /* Höhe des weichen Schattens */
-    /* Ein sehr weicher Verlauf von oben nach unten, der zu den Seiten hin nicht abbricht */
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%) !important;
-    z-index: -1 !important;
-}
-
-/* Schriftfarben ganz oben strahlend weiß */
-header.main-header:not(.is-sticky):not(.sticky):not(.fixed) a {
+/* Weiße Schrift, solange man ganz oben steht */
+header.main-header:not(.is-sticky):not(.sticky):not(.fixed) a,
+header.main-header:not(.is-sticky):not(.sticky):not(.fixed) .navbar-nav li a {
     color: #ffffff !important;
     font-weight: 600 !important;
 }
 
 
 /* =======================================================
-   2. BEIM RUNTERWISCHEN / SCROLLEN: Komplett transparent
+   2. ZUSTAND BEIM SCROLLEN: Durchgehend Weiß-Transparent
    ======================================================= */
-/* Sobald Tooplate/Meteor die Scroll-Klassen aktiviert, zerstören wir den Verlauf vollständig */
-header.main-header.is-sticky,
-header.main-header.sticky,
+/* Spricht den Header an, SOBAID das Template die Scroll-Klasse aktiviert */
+header.main-header.is-sticky, 
+header.main-header.sticky, 
 header.main-header.fixed,
-.is-sticky header.main-header,
-.sticky header.main-header {
+.is-sticky header.main-header {
+    /* Ein edles, leicht transparentes Weiß (90% Deckkraft) */
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Dunkelgraue Schrift beim Scrollen, damit man sie auf Weiß perfekt liest */
+header.main-header.is-sticky a, 
+header.main-header.sticky a, 
+header.main-header.fixed a,
+header.main-header.is-sticky .navbar-nav li a {
+    color: #222222 !important;
+    font-weight: 600 !important;
+}
+
+
+/* =======================================================
+   3. STRUCTUR-SCHUTZ: Verhindert das Verrutschen von Logo/Menü
+   ======================================================= */
+.site-header .container, 
+header.main-header .container, 
+.navbar .container {
+    width: auto !important; 
+    max-width: 100% !important;
+    display: block !important; /* Reaktiviert das originale Template-Raster */
     background: transparent !important;
-    background-color: transparent !important;
-    box-shadow: none !important;
-}
-
-/* Schaltet den künstlichen Hintergrundbalken beim Scrollen unsichtbar */
-header.main-header.is-sticky::before,
-header.main-header.sticky::before,
-header.main-header.fixed::before {
-    display: none !important;
-    content: none !important;
-}
-
-/* Falls die Schrift beim Scrollen im weißen Bereich schwarz werden muss: */
-header.main-header.is-sticky a,
-header.main-header.sticky a,
-header.main-header.fixed a {
-    color: #333333 !important; /* Macht Text dunkel auf weißem Grund */
-    text-shadow: none !important;
 }
