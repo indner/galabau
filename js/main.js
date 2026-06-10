@@ -67,11 +67,20 @@ jQuery(document).ready(function($) {
 
         $(window).on("scroll", function() {
     if($(window).scrollTop() > 100) {
-        // Fügt die Klasse hinzu, damit die Bar kompakt/anders gestylt mitläuft
-        $(".header").addClass("active");
+        // Fügt 'active' hinzu und zwingt die Bar, fixiert oben zu bleiben
+        $(".header").addClass("active").css({
+            "position": "fixed",
+            "top": "0",
+            "left": "0",
+            "width": "100%",
+            "z-index": "9999"
+        });
     } else {
-        // Entfernt die Klasse wieder, wenn du ganz oben bist
-        $(".header").removeClass("active");
+        // Entfernt 'active' und setzt die Bar in den Startzustand zurück
+        $(".header").removeClass("active").css({
+            "position": "fixed", // Sorgt dafür, dass sie auch ganz oben mitgeht
+            "top": "0"
+        });
     }
 });
     
