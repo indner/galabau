@@ -1,5 +1,5 @@
 /* =============================================
-   LADE STUCK & PUTZ GMBH – JavaScript
+   LADE STUCK & PUTZ GMBH – JavaScript 
    ============================================= */
 
 // ---- Theme (Hell/Dunkel) ----
@@ -10,7 +10,9 @@ const THEME_KEY = 'lade-theme';
 function setTheme(theme) {
   html.setAttribute('data-theme', theme);
   localStorage.setItem(THEME_KEY, theme);
-  themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+  if (themeToggle) {
+    themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+  }
 }
 
 function initTheme() {
@@ -30,8 +32,8 @@ const mobileMenu = document.getElementById('mobileMenu');
 
 burger?.addEventListener('click', () => {
   burger.classList.toggle('open');
-  mobileMenu.classList.toggle('open');
-  document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  mobileMenu?.classList.toggle('open');
+  document.body.style.overflow = mobileMenu?.classList.contains('open') ? 'hidden' : '';
 });
 
 function closeMobileMenu() {
@@ -42,20 +44,30 @@ function closeMobileMenu() {
 
 // ---- SPA Router ----
 function navigate(pageId, pushState = true) {
+  if (!pageId) pageId = 'home';
+
   // Alle Seiten ausblenden
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
 
-  // Zielseite einblenden
-  const target = document.getElementById('page-' + pageId);
+  // Zielseite ermitteln (sucht nach page-home, page-leistungen, page-leistung-innenputz etc.)
+  let target = document.getElementById('page-' + pageId);
+
   if (target) {
     target.classList.add('active');
   } else {
-    document.getElementById('page-home')?.classList.add('active');
+    // Falls die ID nicht existiert, Fallback auf Home
+    const homeTarget = document.getElementById('page-home');
+    if (homeTarget) homeTarget.classList.add('active');
+    pageId = 'home';
   }
 
-  // Nav-Link-Highlighting
+  // Nav-Link-Highlighting (Fehlertolerant gegen Unterseiten im Footer)
   document.querySelectorAll('[data-nav]').forEach(a => {
-    a.classList.toggle('active', a.dataset.nav === pageId);
+    if (a.dataset.nav) {
+      // Aktiviert den Haupt-Nav-Punkt "Leistungen", wenn man sich auf einer Leistungs-Unterseite befindet
+      const isCurrent = a.dataset.nav === pageId || (pageId.startsWith('leistung-') && a.dataset.nav === 'leistungen');
+      a.classList.toggle('active', isCurrent);
+    }
   });
 
   // URL updaten
@@ -63,28 +75,34 @@ function navigate(pageId, pushState = true) {
     history.pushState({ page: pageId }, '', '#' + pageId);
   }
 
-  // Scroll nach oben
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Scroll nach oben (auto verhindert sichtbares Ruckeln beim Rendern)
+  window.scrollTo({ top: 0, behavior: 'auto' });
 
   closeMobileMenu();
-  initAnimations();
+  
+  // Animationen leicht verzögert triggern, damit Elemente im neuen Sichtfenster korrekt einblenden
+  setTimeout(() => {
+    initAnimations();
+  }, 50);
 }
 
-// Alle Navigations-Links
+// Alle Navigations-Links sicher binden
 document.querySelectorAll('[data-nav]').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
-    navigate(link.dataset.nav);
+    if (link.dataset.nav) {
+      navigate(link.dataset.nav);
+    }
   });
 });
 
-// Browser zurück/vor
+// Browser zurück/vor Buttons abfangen
 window.addEventListener('popstate', e => {
   const page = e.state?.page || 'home';
   navigate(page, false);
 });
 
-// Initial
+// Start-Initialisierung des Routers
 function initRouter() {
   const hash = location.hash.replace('#', '') || 'home';
   navigate(hash, false);
@@ -95,6 +113,7 @@ function initFAQ() {
   document.querySelectorAll('.faq-question').forEach(q => {
     q.addEventListener('click', () => {
       const item = q.closest('.faq-item');
+      if (!item) return;
       const wasOpen = item.classList.contains('open');
       document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
       if (!wasOpen) item.classList.add('open');
@@ -130,10 +149,12 @@ function initContactForm() {
       .map(c => c.value).join(', ');
 
     const btn = form.querySelector('button[type="submit"]');
+    if (!btn) return;
+    
     btn.textContent = 'Wird gesendet…';
     btn.disabled = true;
 
-    // Simulation (In Produktion: echten API-Aufruf ersetzen)
+    // Simulation des Versands
     setTimeout(() => {
       showToast('✅ Ihre Anfrage wurde gesendet! Wir melden uns bald.');
       form.reset();
@@ -152,7 +173,10 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 4000);
 }
 
-// ---- Init ----
+// ---- Globale Zuweisung für inline onclick-Attribute (z.B. in den Service-Cards) ----
+window.navigate = navigate;
+
+// ---- DomReady Init ----
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initRouter();
